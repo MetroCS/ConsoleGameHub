@@ -1,8 +1,6 @@
-# CS3250 Spring 2025
+# Console Game Hub
 ## Repository (public)
-[cs3250_spring2025](https://github.com/MetroCS/cs3250_spring2025)
-
-## Current Project: Console Game Hub
+[ConsoleGameHub](https://github.com/MetroCS/ConsoleGameHub)
 
 This project is a collaborative software development platform designed for undergraduate CS students, featuring a console-based arcade of classic and logic-driven games.
 
@@ -14,9 +12,9 @@ The goal is to reinforce core and agile software development concepts and practi
 
 The [Project](https://github.com/orgs/MetroCS/projects/9) contains a Kanban-style board of project activity.
 
-See the [Issues](https://github.com/MetroCS/cs3250_spring2025/issues) tab for all associated user stories and tasks.
+See the [Issues](https://github.com/MetroCS/ConsoleGameHub/issues) tab for all associated user stories and tasks.
 
-Find and contribute to [Discussions](https://github.com/MetroCS/cs3250_spring2025/discussions) about new ideas and features.
+Find and contribute to [Discussions](https://github.com/MetroCS/ConsoleGameHub/discussions) about new ideas and features.
 
 <hr style="border-top: 2px dotted green;">
 
