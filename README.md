@@ -3,6 +3,7 @@ Brian F.
 # Console Game Hub
 # Josh Lapierre
 # Hunter Hagerman
+# Cameron Crandall
 Repository for explorations of software development
 
 ---
