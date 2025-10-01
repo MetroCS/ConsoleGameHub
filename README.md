@@ -4,6 +4,7 @@ Brian F.
 # Josh Lapierre
 # Hunter Hagerman
 # Cameron Crandall
+# Ahmed Abdi
 Repository for explorations of software development
 
 ---
