@@ -1,7 +1,8 @@
 Brian F. 
 
 # Console Game Hub
-
+# Josh Lapierre
+# Hunter Hagerman
 Repository for explorations of software development
 
 ---
