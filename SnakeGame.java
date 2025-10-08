@@ -19,7 +19,11 @@ class SnakeGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-        System.out.println("[Playing Snake - Placeholder]");
+        System.out.println("Welcome to Snake Game!");
+        System.out.println("Collect food to grow your snake,");
+        System.out.println("but if you run into yourself,");
+		System.out.println("or the edge of the grid, you lose!");
+
         return Optional.empty();
     }
 }
