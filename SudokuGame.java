@@ -18,7 +18,7 @@ class SudokuGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-        System.out.println("[Playing Sudoku - Placeholder]");
+        System.out.println("\nWelcome to Sudoku! You will be presented with a 9x9 grid, split into 9 different 3x3 grids. \nSome of the cells will be filled in with numbers. Each digit from 1 - 9 must appear exactly once within every row, \ncolumn, and 3x3 grid. To solve the puzzle, each cell must be filled according to the above conditions.");
         return Optional.empty();
     }
 }

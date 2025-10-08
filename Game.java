@@ -1,5 +1,4 @@
 import java.util.Optional;
-
 /**
  * Interface representing a generic game in the arcade.
  * @version 1

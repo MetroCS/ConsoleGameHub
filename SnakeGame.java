@@ -19,7 +19,16 @@ class SnakeGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-        System.out.println("[Playing Snake - Placeholder]");
+        
+        System.out.println( """
+                Welcome To Snake
+
+                How to Play:
+                - Use WASD or Arrow keys to move.
+                - Eat Food to Grow
+                - Avoid the Walls
+                """);
+
         return Optional.empty();
     }
 }

@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 
 /**
  * Console Game Hub.
@@ -19,7 +22,7 @@ public class GameLauncher {
 
     /** Name of the history file. */
     private String historyFileName;
-
+    
     /** Console input. */
     private final Scanner scanner;
 
@@ -95,8 +98,16 @@ public class GameLauncher {
      */
     protected void run() {
         boolean running = true;
+	/**Adding ascii art from file */
+	String art = "";
+    try {
+        art = Files.readString(Path.of("art/ascii-art.txt"));
+    } catch (IOException e) {
+        System.out.println("Error loading ASCII art: " + e.getMessage());
+    }
         while (running) {
-            System.out.println("\n=== Console Arcade Hub ===");
+	    /** Printing ascii art */
+            System.out.println(art);
             for (int i = 0; i < this.games.size(); i++) {
                 System.out.printf("%d. %s\n",
                                   i + 1,
