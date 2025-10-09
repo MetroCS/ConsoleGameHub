@@ -1,4 +1,3 @@
-kfjgl;jklgnkl;fgknjdl
 # Console Game Hub
 ## Repository (public)
 [ConsoleGameHub](https://github.com/MetroCS/ConsoleGameHub)
@@ -27,4 +26,3 @@ Here is an exceutable Jar file for another project:
 _Command line execution:_ ```java -jar DecisionSupport.jar```
 
 _GUI execution:_ Double-click the file icon (May not work on all systems.)
-
