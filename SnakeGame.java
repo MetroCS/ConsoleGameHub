@@ -21,7 +21,8 @@ class SnakeGame implements Game {
     public Optional<Integer> play() {
         System.out.println("Welcome to Snake!");
         System.out.println("Objective: Survive as long as you can!");
-        System.out.println("How to play: Grow by eating dots and avoid walls or you die");
+        System.out.println("How to play: Grow by eating dots and avoid walls");
+        System.out.println("or you die");
         return Optional.empty();
     }
 }
