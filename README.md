@@ -18,12 +18,14 @@ The goal is to reinforce core and agile software development
 concepts and practices by contributing in an engaging,
 real-world context.
 
-#### Test
+#### Test (Dynamic Analysis)
 `ant test`
 #### Build
 `ant jar`
 #### Run
 `java -jar build/jar/ConsoleGameHub.jar`
+#### Code Quality Check (Static Analysis)
+`ant checkstyle pmd`
 
 ### Activities
 
