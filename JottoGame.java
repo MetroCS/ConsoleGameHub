@@ -79,6 +79,8 @@ public class JottoGame implements Game {
             } else {
                 int matches = countMatchingLetters(SECRET_WORD, guess);
                 System.out.println("Letters in common: " + matches);
+		System.out.println("How many guesses you have left: " + attemptsLeft);
+		System.out.println("------------");
                 attemptsLeft--;
             }
         }
