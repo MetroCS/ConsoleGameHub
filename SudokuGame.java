@@ -18,23 +18,17 @@ class SudokuGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-	printIntro();
+        System.out.println("[Playing Sudoku - Placeholder]");
+	System.out.println("Welcome to Sudoku! You will be presented with"
+                        + " a 9x9 grid split into 9 different 3x3 grids."
+                        + " Some of the cells will already be filled in"
+                        + " with numbers. Each digit from 1-9 must"
+                        + " appear exactly once in every"
+                        + " row, column, and  3x3 grid. To solve the puzzle,"
+                        + " each cell must be filled in according to the"
+                        + " following conditions");
 
-        System.out.println("");
         return Optional.empty();
-    }
-
-	private void printIntro() {
-	System.out.println(
-	"Sudoku is a 9x9 number puzzle. Fill the grid so each row, column, and 3x3 box " +
-	"contains the digits 1-9 exactly once. Use logic to complete the board."); 
-
-}
-
-
-public static void main(String[] args) {
-	SudokuGame game = new SudokuGame();
-	game.play();
 
 	}
-} 
+}
