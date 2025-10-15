@@ -103,7 +103,7 @@ public class GameLauncher {
 + " | |\\/| | _|| .` | |_| |\n"
 + " |_|  |_|___|_|\\_|\\___/ \n"
 + "\n"
-                    );
+                              );
             for (int i = 0; i < this.games.size(); i++) {
                 System.out.printf("%d. %s\n",
                                   i + 1,
