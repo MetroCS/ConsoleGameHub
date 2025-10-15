@@ -3,6 +3,7 @@ history.dat
 reports/
 doc/
 .idea/
+build/
 
 # Java Section
 *.class
