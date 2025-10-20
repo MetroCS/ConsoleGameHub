@@ -96,7 +96,14 @@ public class GameLauncher {
     protected void run() {
         boolean running = true;
         while (running) {
-            System.out.println("\n=== Console Arcade Hub ===");
+            System.out.println(
+"=== Console Game Hub === \n"
++ "  __  __ ___ _  _ _   _ \n"
++ " |  \\/  | __| \\| | | | |\n"
++ " | |\\/| | _|| .` | |_| |\n"
++ " |_|  |_|___|_|\\_|\\___/ \n"
++ "\n"
+                              );
             for (int i = 0; i < this.games.size(); i++) {
                 System.out.printf("%d. %s\n",
                                   i + 1,
