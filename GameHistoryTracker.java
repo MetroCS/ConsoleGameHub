@@ -30,9 +30,6 @@ class GameHistoryTracker implements Serializable {
         if (score != null) {
             stats.totalScore += score;
             stats.scores.add(score);
-        } else if (score == null) {
-            System.out.println("Score is null");
-        return;
         }
         statsMap.put(gameName, stats);
     }
