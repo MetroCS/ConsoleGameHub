@@ -29,4 +29,14 @@ public final class GameUtils {
             }
         return words.get(RANDOM.nextInt(words.size()));
      }
+
+    /**
+     * Returns a standardized (lowercase) string
+     *
+     * @param userInput A string of user input that will be standardized to lowercase.
+     * @return A standardized (lowercase) copy of the userInput string.
+     */
+     public static String getStandardInput(String userInput) {
+        return userInput.toLowerCase();
+     }
 }
