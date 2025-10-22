@@ -1,5 +1,6 @@
 import java.util.Optional;
-import java.util.scanner;
+import java.util.Scanner;
+
 
 /**
  * A word guessing game similar to Wordle.
