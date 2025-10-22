@@ -11,7 +11,6 @@ Ximport java.util.Optional;
  * @version 1
  */
 class WordGuessGame implements Game {
-	int wordLength = 5
 	int NumberOfGuesses = 10;
     @Override
     public String getName() {
@@ -33,24 +32,22 @@ class WordGuessGame implements Game {
             + " after you guessed the word correctly!"
         );
         return Optional.empty();
-	string guess = EnterGuess();
-	guess = GuessData(guess);
+		string guess = EnterGuess();
+		guess = GuessData(guess);
     }
 }
-
-}
 	public string EnterGuess(){
-	system.out.println("enter your 5 letter guess");
-	string guess = input.nextLine();
+		system.out.println("enter your 5 letter guess");
+		string guess = input.nextLine();
 	return guess;
 }
 
 	public void GuessData(string guess){
-	int GuessLength = guess.length();
-	if (guess != 5){
-		system.out.println("your guess needs to be 5 letters long");
-		string guess = EnterGuess();
-		GuessData(guess);
+		int GuessLength = guess.length();
+		if (guess != 5){
+			system.out.println("your guess needs to be 5 letters long");
+			string guess = EnterGuess();
+			GuessData(guess);
 		return guess;
 	}
 	else if(guesslength == 5){
