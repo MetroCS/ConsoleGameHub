@@ -49,10 +49,10 @@ class WordGuessGame implements Game {
 		int guessLength = guess.length();
 		if (guessLength != 5){
 			System.out.println("your guess needs to be 5 letters long");
-			String guess = EnterGuess();
+			guess = EnterGuess();
 			guess = GuessData(guess);
 			return guess;
-	}else if(guesslength == 5){
+	}else if(guessLength == 5){
 		return guess;
 	}
 }
