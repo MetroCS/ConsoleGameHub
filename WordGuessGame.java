@@ -47,7 +47,7 @@ class WordGuessGame implements Game {
 
 	public String GuessData(String guess){
 		int guessLength = guess.length();
-		if (guessLength != 5){
+		if (guessLength != 5 || !guess.matches("[a-zA-Z]{5}")){
 			System.out.println("your guess needs to be 5 letters long");
 			guess = EnterGuess();
 			guess = GuessData(guess);
