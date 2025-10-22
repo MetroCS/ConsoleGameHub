@@ -37,18 +37,18 @@ class WordGuessGame implements Game {
         );
 		String guess = EnterGuess();
 		guess = GuessData(guess);
-		return optional.empty();
+		return Optional.empty();
     }
 	public String EnterGuess(){
-		system.out.println("enter your 5 letter guess");
+		System.out.println("enter your 5 letter guess");
 		String guess = input.nextLine();
 	return guess;
 }
 
 	public String GuessData(String guess){
-		int GuessLength = guess.length();
-		if (guess != 5){
-			system.out.println("your guess needs to be 5 letters long");
+		int guessLength = guess.length();
+		if (guessLength != 5){
+			System.out.println("your guess needs to be 5 letters long");
 			String guess = EnterGuess();
 			guess = GuessData(guess);
 			return guess;
