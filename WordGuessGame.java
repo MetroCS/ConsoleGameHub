@@ -55,6 +55,6 @@ class WordGuessGame implements Game {
 	}else if(guessLength == 5){
 		return guess;
 	}
+		return guess;
 }
-	return Optional.empty();
 }
