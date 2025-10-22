@@ -56,4 +56,5 @@ class WordGuessGame implements Game {
 		return guess;
 	}
 }
+	return Optional.empty();
 }
