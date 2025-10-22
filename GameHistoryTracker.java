@@ -1,4 +1,3 @@
-import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -35,7 +34,8 @@ class GameHistoryTracker implements Serializable {
     }
 
     /**
-     * Displays a summary of play history and scores.
+     * Displays a summary of play history sorted in descending order
+     * along with corresponding scores, if any.
      */
     public void displayHistory() {
         System.out.println("\n=== Game Play History ===");
@@ -43,16 +43,28 @@ class GameHistoryTracker implements Serializable {
             System.out.println("No games played yet.");
             return;
         }
-        for (Map.Entry<String, GameStats> entry : statsMap.entrySet()) {
-            String game = entry.getKey();
-            GameStats stats = entry.getValue();
-            System.out.printf("%s - Played: %d", game, stats.timesPlayed);
-            if (!stats.scores.isEmpty()) {
-                double avg = stats.totalScore / (double) stats.scores.size();
-                System.out.printf(", Avg Score: %.2f", avg);
-            }
-            System.out.println();
-        }
+        statsMap.entrySet().stream()
+                .sorted((a, b) -> {
+                    int cmp = Integer.compare(
+                            b.getValue().getTimesPlayed(),
+                            a.getValue().getTimesPlayed()
+                    );
+                    return (cmp == 0)
+                            ? a.getKey().compareToIgnoreCase(b.getKey())
+                            : cmp;
+                })
+                .forEach(entry -> {
+                    String game = entry.getKey();
+                    GameStats stats = entry.getValue();
+                    System.out.printf("%s - Played: %d",
+                            game, stats.getTimesPlayed());
+                    if (!stats.scores.isEmpty()) {
+                        double avg =
+                                stats.totalScore / (double) stats.scores.size();
+                        System.out.printf(", Avg Score: %.2f", avg);
+                    }
+                    System.out.println();
+                });
     }
 
     /**
