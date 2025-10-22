@@ -35,21 +35,21 @@ class WordGuessGame implements Game {
             "Your score is determined by the number of attempts remaining"
             + " after you guessed the word correctly!"
         );
-		string guess = EnterGuess();
+		String guess = EnterGuess();
 		guess = GuessData(guess);
 		return optional.empty();
     }
-	public string EnterGuess(){
+	public String EnterGuess(){
 		system.out.println("enter your 5 letter guess");
-		string guess = input.nextLine();
+		String guess = input.nextLine();
 	return guess;
 }
 
-	public string GuessData(string guess){
+	public String GuessData(String guess){
 		int GuessLength = guess.length();
 		if (guess != 5){
 			system.out.println("your guess needs to be 5 letters long");
-			string guess = EnterGuess();
+			String guess = EnterGuess();
 			guess = GuessData(guess);
 			return guess;
 	}else if(guesslength == 5){
