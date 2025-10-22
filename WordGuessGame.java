@@ -81,7 +81,15 @@ class WordGuessGame implements Game {
         }
 
         System.out.println(
-                "You're out of guesses. You lose. The word was " + SECRET + "."
+                "You're out of guesses. You lose. The word was " + SECRET
+                        + ".\n\n"
+                        + "██╗      ██████╗ ███████╗███████╗██████╗ \n"
+                        + "██║     ██╔═══██╗██╔════╝██╔════╝██╔══██╗\n"
+                        + "██║     ██║   ██║███████╗█████╗  ██████╔╝\n"
+                        + "██║     ██║   ██║╚════██║██╔══╝  ██╔══██╗\n"
+                        + "███████╗╚██████╔╝███████║███████╗██║  ██║\n"
+                        + "╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝\n"
+
         );
         return Optional.of(0);
     }
