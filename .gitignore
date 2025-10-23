@@ -2,6 +2,8 @@
 history.dat
 reports/
 doc/
+build/
+.idea/
 
 # Java Section
 *.class
