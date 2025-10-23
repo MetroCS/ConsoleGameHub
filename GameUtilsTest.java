@@ -27,4 +27,9 @@ public class GameUtilsTest {
               String selectedWord = GameUtils.getRandomWord(null);
               assertNull(selectedWord);
         }
+        @Test
+        void testCaseSensitiveInputs() {
+              String inputCheck  = GameUtils.getStandardInput("TEST");
+              assertTrue(inputCheck.equals("test"));
+        }
 }
