@@ -20,8 +20,9 @@ class SudokuGame implements Game {
     @Override
     public Optional<Integer> play() {
         System.out.println("Playing Sudoku");
-	    System.out.println("The objective of Sudoku is to fill each space in the grid with a digit, 1 through 9.");
-	    System.out.println("The only rule is that there can be no recurring digits on any colomn, row, or subgrid of 3x3.");
+	    System.out.println("The objective of Sudoku is to fill each space in the grid with a digit,");
+	    System.out.println("1 through 9. The only rule is that there can be no recurring digits");
+		System.out.println("on any colomn, row, or subgrid of 3x3.");
         return Optional.empty();
     }
 }
