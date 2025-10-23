@@ -10,6 +10,7 @@ import java.util.Optional;
  * </pre>
  * @version 1
  */
+
 class SudokuGame implements Game {
     @Override
     public String getName() {
@@ -18,7 +19,11 @@ class SudokuGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-        System.out.println("[Playing Sudoku - Placeholder]");
+        System.out.println("Playing Sudoku");
+        System.out.println("The goal of Sudoku is to fill each space in");
+        System.out.println("the grid with a digit, 1 through 9. The only");
+        System.out.println("rule is that there can be no recurring ");
+        System.out.println("digits on any colomn, row, or subgrid of 3x3.")
         return Optional.empty();
     }
 }
