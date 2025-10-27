@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Track history and stats of games played.
@@ -14,8 +16,9 @@ import java.io.FileOutputStream;
  * @author Cesar Soto, Mason Proctor, Luke Ross
  * @version 2
  */
-class GameHistoryTracker implements Serializable {
-    private static final long serialVersionUID = 2L;
+public class GameHistoryTracker implements Serializable {
+    private static final long serialVersionUID = 5L;
+
     /** Collection of play stats for each game. */
     private final HashMap<String, GameStats> statsMap = new HashMap<>();
 
@@ -27,15 +30,18 @@ class GameHistoryTracker implements Serializable {
     public void recordPlay(final String gameName, final Integer score) {
         GameStats stats = statsMap.getOrDefault(gameName, new GameStats());
         stats.incrementTimesPlayed();
+
         if (score != null) {
-            stats.totalScore += score;
-            stats.scores.add(score);
+            stats.addScore(score); // adds score AND updates lastPlayed
+        } else {
+            stats.updateLastPlayed(); // update timestamp even if no score
         }
+
         statsMap.put(gameName, stats);
     }
 
     /**
-     * Displays a summary of play history and scores.
+     * Displays a summary of play history, showing average score, last score, and last played timestamp.
      */
     public void displayHistory() {
         System.out.println("\n=== Game Play History ===");
@@ -43,14 +49,19 @@ class GameHistoryTracker implements Serializable {
             System.out.println("No games played yet.");
             return;
         }
+
         for (Map.Entry<String, GameStats> entry : statsMap.entrySet()) {
             String game = entry.getKey();
             GameStats stats = entry.getValue();
             System.out.printf("%s - Played: %d", game, stats.timesPlayed);
+
             if (!stats.scores.isEmpty()) {
-                double avg = stats.totalScore / (double) stats.scores.size();
-                System.out.printf(", Avg Score: %.2f", avg);
+                double avg = stats.getAverageScore();
+                int lastScore = stats.getLastScore();
+                System.out.printf(", Avg Score: %.2f, Last Score: %d", avg, lastScore);
             }
+
+            System.out.printf(", Last Played: %s", stats.getLastPlayedFormatted());
             System.out.println();
         }
     }
@@ -61,8 +72,7 @@ class GameHistoryTracker implements Serializable {
      * @throws IOException if an I/O error occurs
      */
     public void saveHistory(final String filename) throws IOException {
-        try (ObjectOutputStream out =
-                new ObjectOutputStream(new FileOutputStream(filename))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(this);
         }
     }
@@ -83,15 +93,13 @@ class GameHistoryTracker implements Serializable {
     /**
      * Loads the game history from a file.
      * @param filename the name of the file to load from
-     * @return useful game history tracker
+     * @return a GameHistoryTracker instance
      */
     public static GameHistoryTracker loadHistory(final String filename) {
-        try (ObjectInputStream in
-                = new ObjectInputStream(new FileInputStream(filename))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
             return (GameHistoryTracker) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println(
-                "No previous history found or failed to load. Starting fresh.");
+            System.err.println("No previous history found or failed to load. Starting fresh.");
             return new GameHistoryTracker();
         }
     }
@@ -100,25 +108,40 @@ class GameHistoryTracker implements Serializable {
      * Inner class to track stats for a single game.
      */
     private static class GameStats implements Serializable {
-        private static final long serialVersionUID = 2L;
-        /** The number of times game has been played. */
+        private static final long serialVersionUID = 5L;
+
         private int timesPlayed = 0;
-        /** The current total score. */
         private int totalScore = 0;
-        /** All recorded scores. */
         private ArrayList<Integer> scores = new ArrayList<>();
-        /**
-         * Access the number of times the game has been played.
-         * @return times played
-         */
-        int getTimesPlayed() {
-            return this.timesPlayed;
+        private long lastPlayed = 0;
+
+        int getTimesPlayed() { return this.timesPlayed; }
+        void incrementTimesPlayed() { this.timesPlayed++; }
+
+        void addScore(int score) {
+            scores.add(score);
+            totalScore += score;
+            updateLastPlayed();
         }
-        /**
-         * Increment the number of times the game has been played.
-         */
-        void incrementTimesPlayed() {
-            this.timesPlayed++;
+
+        int getLastScore() {
+            if (scores.isEmpty()) return 0;
+            return scores.get(scores.size() - 1);
+        }
+
+        double getAverageScore() {
+            if (scores.isEmpty()) return 0;
+            return totalScore / (double) scores.size();
+        }
+
+        void updateLastPlayed() {
+            this.lastPlayed = System.currentTimeMillis();
+        }
+
+        String getLastPlayedFormatted() {
+            if (lastPlayed == 0) return "Never";
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy – h:mm a");
+            return sdf.format(new Date(lastPlayed));
         }
     }
 }
