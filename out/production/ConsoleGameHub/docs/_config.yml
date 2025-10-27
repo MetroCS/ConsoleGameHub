@@ -1,0 +1,11 @@
+# theme: jekyll-theme-minimal
+title: CS3250 (Spring 2025)
+name: CS3250 Spring 2025
+author: Dr. Jody Paul
+description: Repository and Website in support of Spring 2025 CS3250
+show_downloads: false
+is_project_page: false
+show_githublink: false
+remote_theme: pages-themes/slate@v0.2.0
+plugins:
+- jekyll-remote-theme

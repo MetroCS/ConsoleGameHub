@@ -1,0 +1,231 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<!-- Copyright (c) Dr. Jody Paul
+     This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+     http://creativecommons.org/licenses/by-sa/4.0/ -->
+<project name="ConsoleGameHub" basedir="." default="all">
+  <description>
+    Build file for CS3250 Spring 2025
+  </description>
+  <property name="version" value="20250409"/>
+  <property name="author" value="Dr. Jody Paul"/>
+  <property name="copyright" value="Copyright (c) Dr. Jody Paul"/>
+  <property name="license"
+            value="This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."/>
+
+  <!-- Global properties -->
+  <property name="src.dir"     value="."/>
+  <property name="build.dir"   value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir"     value="${build.dir}/jar"/>
+  <property name="lib.dir"     value="lib"/>
+  <property name="reports.dir" location="reports"/>
+  <property name="doc"         location="doc"/>
+  <property name="api.url"     value="https://docs.oracle.com/en/java/javase/17/docs/api/" />
+
+  <!-- Identify main class -->
+  <property name="main-class"  value="GameLauncher"/>
+
+  <!-- pmd directories -->
+  <property name="pmd.dir" location="${lib.dir}/pmd"/>
+  <property name="pmd.reports.dir" location="${reports.dir}/pmd"/>
+
+  <!-- Establish classpaths for production and testing. -->
+  <path id="classpath">
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+  </path>
+  <path id="test.classpath">
+    <pathelement path="${classes.dir}"/>
+    <fileset dir="${ant.home}/lib" includes="*.jar"/>
+    <fileset dir="${lib.dir}" includes="*.jar"/>
+  </path>
+
+
+  <target name="all"
+          description="Clean, Build, Check, Test"
+          depends="clean, compile, checkstyle, test, pmd"/>
+
+  <target name="clean"
+          description="Clean up dynamically-created files and directories">
+    <delete dir="${build.dir}"/>
+    <delete dir="${reports.dir}"/>
+    <delete dir="${doc}"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}"
+           destdir="${classes.dir}"
+           classpathref="test.classpath"
+           encoding="UTF-8"
+           debug="on"
+           includeantruntime="false">
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}" excludes="*Test.class">
+      <manifest>
+        <attribute name="Main-Class" value="${main-class}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" description="Prepare to run the application" depends="jar">
+    <!-- java jar="${jar.dir}/${ant.project.name}.jar" fork="true" -->
+    <echo message="Product ready to run using:  java -jar ${jar.dir}/${ant.project.name}.jar" />
+  </target>
+
+  <target name="main"
+          description="Clean and Prepare to Run"
+          depends="clean,run"/>
+
+  <target name="init">
+    <!-- Create a time stamp -->
+    <tstamp/>
+  </target>
+  
+  <!-- Checkstyle properties -->
+  <property name="checkstyle.jar" value="${lib.dir}/checkstyle.jar"/>
+  <property name="checkstyle.xsl" value="${lib.dir}/checkstyle.xsl"/>
+  <property name="checks.xml" value="${lib.dir}/jp_checks.xml"/>
+  <property name="checkstyle.reports.dir" value="${reports.dir}/checkstyle"/>
+
+  <target name="checkstyle"
+          description="Generate Checkstyle report of code convention violations">
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+             classpath="${checkstyle.jar}" />
+    <mkdir dir="${checkstyle.reports.dir}"/>
+    <checkstyle config="${checks.xml}"
+                failureProperty="checkstyle.failure"
+                failOnViolation="false">
+      <fileset dir="${src.dir}" includes="**/*.java" />
+      <!-- formatter type="plain" / -->
+      <formatter type="xml" tofile="${checkstyle.reports.dir}/checkstyle_report.xml" />
+    </checkstyle>
+    <xslt  in="${checkstyle.reports.dir}/checkstyle_report.xml"
+           out="${checkstyle.reports.dir}/checkstyle_report.html"
+           style="${checkstyle.xsl}" />
+  </target> 
+
+
+  <!-- PMD and CPD -->
+  <path id="pmd.classpath">
+    <fileset dir="${pmd.dir}">
+      <include name="*.jar"/>
+      <include name="lib/**/*.jar"/>
+    </fileset>
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+  </path>
+
+  <target name="pmdInit">
+    <mkdir dir="${pmd.reports.dir}"/>
+  </target>
+  <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath"/>
+  <target name="pmd" description="process source with PMD" depends="pmdInit">
+    <pmd shortFilenames="true">
+      <sourceLanguage name="java" version="1.8"/>
+      <ruleset>java-basic</ruleset>
+      <ruleset>java-braces</ruleset>
+      <ruleset>java-codesize</ruleset>
+      <ruleset>java-design</ruleset>
+      <ruleset>java-empty</ruleset>
+      <ruleset>java-imports</ruleset>
+      <ruleset>java-unusedcode</ruleset>
+      <!-- <ruleset>rulesets/java/design.xml</ruleset> -->
+      <!-- <ruleset>java-comments</ruleset> -->
+      <!-- <ruleset>java-naming</ruleset> -->
+      <formatter type="html" toFile="${pmd.reports.dir}/pmd_report.html" toConsole="true">
+        <param name="linkPrefix" value="http://pmd.sourceforge.net/xref/"/>
+        <param name="linePrefix" value=".line"/>
+      </formatter>
+      <fileset dir="${src.dir}">
+        <include name="**/*.java"/>
+      </fileset>
+    </pmd>
+    <echo message="PMD report is at ${pmd.reports.dir}/pmd_report.html" />
+  </target>
+  <!-- PMD and CPD END -->
+
+
+  <target name="test" description="Run tests" depends="unitTest"/>
+  <target name="unitTest" depends="test.console.launcher"/>
+
+  <property name="testreports.dir" location="${reports.dir}/testresults"/>
+
+  <!-- https://junit.org/junit5/docs/current/user-guide/#running-tests-console-launcher -->
+  <target name="test.console.launcher" depends="compile">
+    <java classpathref="test.classpath"
+          classname="org.junit.platform.console.ConsoleLauncher"
+          fork="true"
+          failonerror="false">
+      <arg value="--scan-classpath"/>
+      <arg line="--reports-dir ${testreports.dir}"/>
+    </java>
+    <junitreport todir="${testreports.dir}">
+      <fileset dir="${testreports.dir}">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${testreports.dir}"/>
+    </junitreport>
+  </target>
+
+  <target name="doc"
+        description="generate API documentation" >
+    <!-- Create the documentation directory -->
+    <mkdir dir="${doc}"/>
+    <!-- Generate the API documentation for ${src.dir} in ${doc} -->
+    <javadoc access="public" destdir="${doc}" classpathref="classpath" encoding="cp1252"
+             additionalparam="-Xdoclint:none -html5">
+      <fileset dir="${src.dir}" casesensitive="yes" defaultexcludes="yes">
+        <filename name="**/*.java"/>
+        <exclude name="**/*Test.java"/>
+      </fileset>
+      <link href="${api.url}" />
+      <bottom>
+        <![CDATA[<a rel="license"
+                 href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License"
+                 style="border-width:0;float:left;margin-right:5px;"
+                 src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
+                 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><i>Console Game Hub</i></span> by
+                 <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/MetroCS/cs3250_spring2025/tree/main/"
+                 property="cc:attributionName" rel="cc:attributionURL">MetroCS</a> is licensed under a
+                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
+                 Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Permissions beyond the scope of
+                 this license may be available at <a xmlns:cc="http://creativecommons.org/ns#"
+                 href="https://github.com/MetroCS/cs3250_spring2025/blob/main/LICENSE.md"
+                 rel="cc:morePermissions">https://github.com/MetroCS/cs3250_spring2025/blob/main/LICENSE.md</a>.]]>
+      </bottom>
+    </javadoc>
+  </target>
+
+  <target name="doc-private"
+        description="generate maintenance documentation" >
+    <!-- Create the documentation directory -->
+    <mkdir dir="${doc}"/>
+    <!-- Generate the API documentation for ${src.dir} in ${doc} -->
+    <javadoc access="private" destdir="${doc}" classpathref="classpath" encoding="cp1252"
+             additionalparam="-Xdoclint:none -html5">
+      <fileset dir="${src.dir}" casesensitive="yes" defaultexcludes="yes">
+        <filename name="**/*.java"/>
+      </fileset>
+      <link href="${api.url}" />
+      <bottom>
+        <![CDATA[<a rel="license"
+                 href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License"
+                 style="border-width:0;float:left;margin-right:5px;"
+                 src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
+                 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><i>Console Game Hub</i></span> by
+                 <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/MetroCS/cs3250_spring2025/tree/main/"
+                 property="cc:attributionName" rel="cc:attributionURL">MetroCS</a> is licensed under a
+                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
+                 Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Permissions beyond the scope of
+                 this license may be available at <a xmlns:cc="http://creativecommons.org/ns#"
+                 href="https://github.com/MetroCS/cs3250_spring2025/blob/main/LICENSE.md"
+                 rel="cc:morePermissions">https://github.com/MetroCS/cs3250_spring2025/blob/main/LICENSE.md</a>.]]>
+      </bottom>
+    </javadoc>
+  </target>
+
+</project>

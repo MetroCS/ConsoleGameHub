@@ -19,10 +19,11 @@ class SnakeGame implements Game {
 
     @Override
     public Optional<Integer> play() {
-        System.out.println("Welcome to Snake!");
-        System.out.println("Objective: Survive as long as you can!");
-        System.out.println("How to play: Grow by eating dots and avoid walls");
-        System.out.println("or you die");
+        System.out.println("Welcome to Snake Game!");
+        System.out.println("Collect food to grow your snake,");
+        System.out.println("but if you run into yourself,");
+		System.out.println("or the edge of the grid, you lose!");
+
         return Optional.empty();
     }
 }

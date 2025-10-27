@@ -29,4 +29,8 @@ public final class GameUtils {
             }
         return words.get(RANDOM.nextInt(words.size()));
      }
+
+     public static String getStandardInput(String userInput) {
+        return userInput.toLowerCase();
+     }
 }
