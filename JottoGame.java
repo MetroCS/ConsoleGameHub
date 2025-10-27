@@ -61,9 +61,10 @@ public class JottoGame implements Game {
                            + "letters: \"B\" and \"I\". ");
         int attemptsLeft = MAX_GUESSES;
 
-        while (attemptsLeft > 0) {
-            System.out.print("Enter guess: ");
-            String guess = scanner.nextLine().trim().toUpperCase();
+          while (attemptsLeft > 0) {
+                System.out.println("Remaining number of guesses: " + attemptsLeft);
+				System.out.print("Enter guess: ");
+                String guess = scanner.nextLine().trim().toUpperCase();
 
             if (guess.length() != WORD_LENGTH || !guess.matches("[A-Z]+")) {
                 System.out.println("Invalid input. "

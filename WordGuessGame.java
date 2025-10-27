@@ -1,4 +1,6 @@
 import java.util.Optional;
+import java.util.Scanner;
+
 
 /**
  * A word guessing game similar to Wordle.
@@ -11,7 +13,10 @@ import java.util.Optional;
  * @version 1
  */
 class WordGuessGame implements Game {
-
+	int NumberOfGuesses = 6;
+	Scanner input = new Scanner(System.in);
+	String secretWord = "APPLE";
+	
     @Override
     public String getName() {
         return "Word Guess";
@@ -31,6 +36,26 @@ class WordGuessGame implements Game {
             "Your score is determined by the number of attempts remaining"
             + " after you guessed the word correctly!"
         );
-        return Optional.empty();
+		
+		String guess = EnterGuess();
+		guess = GuessData(guess);
+		NumberOfGuesses--;
+		return Optional.of(NumberOfGuesses);
     }
+	public String EnterGuess(){
+		System.out.println("enter your 5 letter guess");
+		return input.nextLine();
+}
+
+	public String GuessData(String guess){
+		int guessLength = guess.length();
+		if (guessLength != 5 || !guess.matches("[a-zA-Z0-9]{5}")){
+			System.out.println("your guess needs to be 5 letters long");
+			guess = EnterGuess();
+			guess = GuessData(guess);
+			return guess;
+	}else {
+		return guess;
+	}
+}
 }
