@@ -12,6 +12,8 @@ import java.util.Optional;
  */
 class WordGuessGame implements Game {
 
+    
+
     @Override
     public String getName() {
         return "Word Guess";
@@ -19,6 +21,26 @@ class WordGuessGame implements Game {
 
     @Override
     public Optional<Integer> play() {
+
+        /**
+         Game Logic Pseudocode:
+          int UserScore = 100; //initial score
+          String WordToGuess = WordGenerator(); Generates word to guess
+         while (MaxAttempts >= UserAttempts){
+             prompt user for guess
+             if guess is correct
+                 return score
+                 break
+             else
+                 increment userattempts
+                 score = score - 10; reduce 10 points each missed attempt
+
+                 
+         }
+          
+          
+         
+         */
         System.out.println(
             "[Playing Word Guess - You will have a limited number of attempts"
             + " to guess a secret 5 letter word.]"
@@ -33,4 +55,15 @@ class WordGuessGame implements Game {
         );
         return Optional.empty();
     }
+
+    public String WordGenerator(){
+        //Word generation logic to be implemented
+        return "placeholder";
+    }
+
+    public boolean isValidGuess(String guess){
+        //Guess validation logic to be implemented
+        return true;
+    }
 }
+
