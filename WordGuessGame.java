@@ -39,12 +39,12 @@ class WordGuessGame implements Game {
 		
 		String guess = EnterGuess();
 		guess = GuessData(guess);
-		return Optional.empty();
+		NumberOfGuesses--;
+		return Optional.of(NumberOfGuesses);
     }
 	public String EnterGuess(){
 		System.out.println("enter your 5 letter guess");
-		String guess = input.nextLine();
-	return guess;
+		return input.nextLine();
 }
 
 	public String GuessData(String guess){
@@ -54,9 +54,8 @@ class WordGuessGame implements Game {
 			guess = EnterGuess();
 			guess = GuessData(guess);
 			return guess;
-	}else if(guessLength == 5){
+	}else {
 		return guess;
 	}
-		return guess;
 }
 }
