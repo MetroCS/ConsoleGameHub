@@ -63,7 +63,7 @@ public class JottoGame implements Game {
 
           while (attemptsLeft > 0) {
                 System.out.print("Remaining number of guesses: " + attemptsLeft);
-				system.out.print("Enter guess: ");
+				System.out.print("Enter guess: ");
                 String guess = scanner.nextLine().trim().toUpperCase();
 
             if (guess.length() != WORD_LENGTH || !guess.matches("[A-Z]+")) {
