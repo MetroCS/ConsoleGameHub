@@ -29,7 +29,7 @@ public class WordGuessGameTest {
 
     @Test
     public void testIncorrectThenCorrectGuess() {
-        String simulatedInput = "MANG0\app1e\n";
+        String simulatedInput = "MANG0\n";
         InputStream originalIn = System.in;
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
