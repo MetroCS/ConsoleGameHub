@@ -29,6 +29,21 @@ public class WordGuessGameTest {
 
     @Test
     public void testIncorrectThenCorrectGuess() {
+        String simulatedInput = "MANG0\app1e\n";
+        InputStream originalIn = System.in;
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        WordGuessGame game = new WordGuessGame();
+        Optional<Integer> result = game.play();
+
+        assertTrue(result.isPresent());
+        assertEquals(5, result.get());
+
+        System.setIn(originalIn);
+    }
+
+    @Test
+    public void testIncorrectThenCorrectGuess() {
         String simulatedInput = "MANGO\nAPPLE\n";
         InputStream originalIn = System.in;
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
