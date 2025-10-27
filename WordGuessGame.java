@@ -13,8 +13,9 @@ import java.util.Scanner;
  * @version 1
  */
 class WordGuessGame implements Game {
-	int NumberOfGuesses = 10;
+	int NumberOfGuesses = 6;
 	Scanner input = new Scanner(System.in);
+	String secretWord = "APPLE";
 	
     @Override
     public String getName() {
@@ -35,6 +36,7 @@ class WordGuessGame implements Game {
             "Your score is determined by the number of attempts remaining"
             + " after you guessed the word correctly!"
         );
+		
 		String guess = EnterGuess();
 		guess = GuessData(guess);
 		return Optional.empty();
