@@ -130,6 +130,7 @@ public class GameLauncher {
                     System.out.println("Goodbye!");
                 } else if (choice > 0 && choice <= this.games.size()) {
                     Game game = this.games.get(choice - 1);
+		    System.out.println("\n=== Now Playing: " + game.getName().toUpperCase() + " ===");
                     Optional<Integer> score = game.play();
                     this.historyTracker.recordPlay(game.getName(),
                                                    score.orElse(null));
