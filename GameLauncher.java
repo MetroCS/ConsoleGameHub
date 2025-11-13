@@ -104,16 +104,17 @@ public class GameLauncher {
 + " |_|  |_|___|_|\\_|\\___/ \n"
 + "\n"
                               );
+            System.out.println("_____________________________");
             for (int i = 0; i < this.games.size(); i++) {
-                System.out.printf("%d. %s\n",
+                System.out.printf("|  %d. %s\n",
                                   i + 1,
                                   this.games.get(i).getName());
             }
-            System.out.println("0. Exit");
-            System.out.println("H. View Game History");
-            System.out.println("C. Clear Game History");
+            System.out.println("|  0. Exit");
+            System.out.println("|  H. View Game History");
+            System.out.println("|  C. Clear Game History");
+            System.out.println("_____________________________");
             System.out.print("Choose a game: ");
-
             String input = this.scanner.nextLine().trim();
             if (input.equalsIgnoreCase("H")) {
                 this.historyTracker.displayHistory();
